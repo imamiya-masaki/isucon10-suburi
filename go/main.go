@@ -16,8 +16,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo"
-	// "github.com/labstack/echo/middleware"
-	// "github.com/labstack/gommon/log"
+	"github.com/labstack/echo/middleware"
+	"github.com/labstack/gommon/log"
 )
 
 const Limit = 20
@@ -837,7 +837,7 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 	w := chair.Width
 	h := chair.Height
 	d := chair.Depth
-	query = `SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) ORDER BY popularity DESC, id ASC LIMIT ?`
+	query = `SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?)ORDER BY popularity DESC, id ASC LIMIT ?`
 	err = db.Select(&estates, query, w, h, w, d, h, d, Limit)
 	if err != nil {
 		if err == sql.ErrNoRows {
