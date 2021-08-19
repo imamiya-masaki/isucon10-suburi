@@ -839,10 +839,10 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 	getter[1] = chair.Height
 	getter[2] = chair.Depth
 	w := chair.Width
-	h := chair.Height
-	d := chair.Depth
-	max := 0
-	min := w
+	// h := chair.Height
+	// d := chair.Depth
+	max := int64(0)
+	min := int64(w)
 	minIndex := 0
 	for i:= 0; i<3; i++ {
 		if min > getter[i] {
@@ -854,7 +854,7 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 		}
 	}
 	min2 := max
-	min2Index := 0
+	// min2Index := 0
 	for i:=0; i<3; i++ {
 		if min2 > getter[i] && i != minIndex {
 			min2 = getter[i]
