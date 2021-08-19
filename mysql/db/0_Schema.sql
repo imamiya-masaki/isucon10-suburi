@@ -36,3 +36,10 @@ CREATE TABLE isuumo.chair
     popularity  INTEGER         NOT NULL,
     stock       INTEGER         NOT NULL
 );
+
+CREATE TABLE isuumo.test
+(
+    id         INTEGER          NOT NULL PRIMARY KEY
+)
+CREATE INDEX stock_price ON chair(price, stock, id);
+/*ALTER TABLE chair ADD INDEX stock_price(price, stock, id);*/
