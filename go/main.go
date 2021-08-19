@@ -858,7 +858,7 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 	for i:=0; i<3; i++ {
 		if min2 > getter[i] && i != minIndex {
 			min2 = getter[i]
-			min2Index = i
+			// min2Index = i
 		}
 	}
 
