@@ -37,4 +37,4 @@ CREATE TABLE isuumo.chair
     stock       INTEGER         NOT NULL
 );
 
-CREATE INDEX stock_price ON isuumo.chair(price, stock);
+CREATE INDEX stock_price ON isuumo.chair(price, stock, popularity);
