@@ -238,51 +238,51 @@ func init() {
 	json.Unmarshal(jsonText, &estateSearchCondition)
 }
 
-func main() {
-	// Echo instance
-	e := echo.New()
-	e.Debug = true
-	e.Logger.SetLevel(log.DEBUG)
+// func main() {
+// 	// Echo instance
+// 	e := echo.New()
+// 	e.Debug = true
+// 	e.Logger.SetLevel(log.DEBUG)
 
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+// 	// Middleware
+// 	e.Use(middleware.Logger())
+// 	e.Use(middleware.Recover())
 
-	// Initialize
-	e.POST("/initialize", initialize)
+// 	// Initialize
+// 	e.POST("/initialize", initialize)
 
-	// Chair Handler
-	e.GET("/api/chair/:id", getChairDetail)
-	e.POST("/api/chair", postChair)
-	e.GET("/api/chair/search", searchChairs)
-	e.GET("/api/chair/low_priced", getLowPricedChair)
-	e.GET("/api/chair/search/condition", getChairSearchCondition)
-	e.POST("/api/chair/buy/:id", buyChair)
+// 	// Chair Handler
+// 	e.GET("/api/chair/:id", getChairDetail)
+// 	e.POST("/api/chair", postChair)
+// 	e.GET("/api/chair/search", searchChairs)
+// 	e.GET("/api/chair/low_priced", getLowPricedChair)
+// 	e.GET("/api/chair/search/condition", getChairSearchCondition)
+// 	e.POST("/api/chair/buy/:id", buyChair)
 
-	// Estate Handler
-	e.GET("/api/estate/:id", getEstateDetail)
-	e.POST("/api/estate", postEstate)
-	e.GET("/api/estate/search", searchEstates)
-	e.GET("/api/estate/low_priced", getLowPricedEstate)
-	e.POST("/api/estate/req_doc/:id", postEstateRequestDocument)
-	e.POST("/api/estate/nazotte", searchEstateNazotte)
-	e.GET("/api/estate/search/condition", getEstateSearchCondition)
-	e.GET("/api/recommended_estate/:id", searchRecommendedEstateWithChair)
+// 	// Estate Handler
+// 	e.GET("/api/estate/:id", getEstateDetail)
+// 	e.POST("/api/estate", postEstate)
+// 	e.GET("/api/estate/search", searchEstates)
+// 	e.GET("/api/estate/low_priced", getLowPricedEstate)
+// 	e.POST("/api/estate/req_doc/:id", postEstateRequestDocument)
+// 	e.POST("/api/estate/nazotte", searchEstateNazotte)
+// 	e.GET("/api/estate/search/condition", getEstateSearchCondition)
+// 	e.GET("/api/recommended_estate/:id", searchRecommendedEstateWithChair)
 
-	mySQLConnectionData = NewMySQLConnectionEnv()
+// 	mySQLConnectionData = NewMySQLConnectionEnv()
 
-	var err error
-	db, err = mySQLConnectionData.ConnectDB()
-	if err != nil {
-		e.Logger.Fatalf("DB connection failed : %v", err)
-	}
-	db.SetMaxOpenConns(10)
-	defer db.Close()
+// 	var err error
+// 	db, err = mySQLConnectionData.ConnectDB()
+// 	if err != nil {
+// 		e.Logger.Fatalf("DB connection failed : %v", err)
+// 	}
+// 	db.SetMaxOpenConns(10)
+// 	defer db.Close()
 
-	// Start server
-	serverPort := fmt.Sprintf(":%v", getEnv("SERVER_PORT", "1323"))
-	e.Logger.Fatal(e.Start(serverPort))
-}
+// 	// Start server
+// 	serverPort := fmt.Sprintf(":%v", getEnv("SERVER_PORT", "1323"))
+// 	e.Logger.Fatal(e.Start(serverPort))
+// }
 
 func initialize(c echo.Context) error {
 	sqlDir := filepath.Join("..", "mysql", "db")
