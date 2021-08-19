@@ -19,7 +19,7 @@ CREATE TABLE isuumo.estate
     features    VARCHAR(64)         NOT NULL,
     popularity  INTEGER             NOT NULL,
     popularity_desc INTEGER AS (-popularity) NOT NULL,
-    "point" POINT AS (POINT(latitude, longitude)) NOT NULL
+    pointuse POINT AS (POINT(latitude, longitude)) NOT NULL
 );
 
 CREATE TABLE isuumo.chair

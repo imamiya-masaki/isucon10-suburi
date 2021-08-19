@@ -900,7 +900,7 @@ func searchEstateNazotte(c echo.Context) error {
 	}
 
 	estatesInPolygon := []Estate{}
-	query = fmt.Sprintf(`SELECT * FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), ST_GeomFromText(point))`, coordinates.coordinatesToText())
+	query = fmt.Sprintf(`SELECT * FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), ST_GeomFromText(pointuse))`, coordinates.coordinatesToText())
 	err = db.Get(&estatesInPolygon, query)
 	if err != nil {
 		if err == sql.ErrNoRows {
