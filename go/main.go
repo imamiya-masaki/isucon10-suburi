@@ -32,17 +32,17 @@ type InitializeResponse struct {
 	Language string `json:"language"`
 }
 
-type Marshaler interface {
-    EncodeRapidash(Encoder) error
-}
+// type Marshaler interface {
+//     EncodeRapidash(Encoder) error
+// }
 
-type Unmarshaler interface {
-    DecodeRapidash(Decoder) error
-}
+// type Unmarshaler interface {
+//     DecodeRapidash(Decoder) error
+// }
 
-func (tx *Tx) CreateByTable(tableName string, marshaler Marshaler) (int64, error) {}
+// func (tx *Tx) CreateByTable(tableName string, marshaler Marshaler) (int64, error) {}
 
-func (tx *Tx) FindByQueryBuilder(builder *QueryBuilder, unmarshaler Unmarshaler) error {}
+// func (tx *Tx) FindByQueryBuilder(builder *QueryBuilder, unmarshaler Unmarshaler) error {}
 
 type Chair struct {
 	ID          int64  `db:"id" json:"id"`
