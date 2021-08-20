@@ -32,6 +32,18 @@ type InitializeResponse struct {
 	Language string `json:"language"`
 }
 
+type Marshaler interface {
+    EncodeRapidash(Encoder) error
+}
+
+type Unmarshaler interface {
+    DecodeRapidash(Decoder) error
+}
+
+func (tx *Tx) CreateByTable(tableName string, marshaler Marshaler) (int64, error) {}
+
+func (tx *Tx) FindByQueryBuilder(builder *QueryBuilder, unmarshaler Unmarshaler) error {}
+
 type Chair struct {
 	ID          int64  `db:"id" json:"id"`
 	Name        string `db:"name" json:"name"`
@@ -505,7 +517,7 @@ func searchChairs(c echo.Context) error {
 	searchQuery := "SELECT * FROM chair WHERE "
 	countQuery := "SELECT COUNT(*) FROM chair WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
-	limitOffset := " ORDER BY popularity DESC, id ASC LIMIT ? OFFSET ?"
+	limitOffset := " ORDER BY popularity_desc , id LIMIT ? OFFSET ?"
 
 	var res ChairSearchResponse
 	err = db.Get(&res.Count, countQuery+searchCondition, params...)
@@ -773,7 +785,7 @@ func searchEstates(c echo.Context) error {
 	searchQuery := "SELECT * FROM estate WHERE "
 	countQuery := "SELECT COUNT(*) FROM estate WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
-	limitOffset := " ORDER BY popularity DESC, id ASC LIMIT ? OFFSET ?"
+	limitOffset := " ORDER BY popularity_desc , id ASC LIMIT ? OFFSET ?"
 
 	var res EstateSearchResponse
 	err = db.Get(&res.Count, countQuery+searchCondition, params...)
@@ -862,7 +874,7 @@ func searchRecommendedEstateWithChair(c echo.Context) error {
 		}
 	}
 
-	query = `SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) ORDER BY popularity DESC, id ASC LIMIT ?`
+	query = `SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?) OR (door_width >= ? AND door_height >= ?) ORDER BY popularity_desc, id LIMIT ?`
 	err = db.Select(&estates, query, min, min2, min2, min, Limit)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -889,7 +901,7 @@ func searchEstateNazotte(c echo.Context) error {
 
 	b := coordinates.getBoundingBox()
 	estatesInBoundingBox := []Estate{}
-	query := `SELECT * FROM estate WHERE latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ? ORDER BY popularity DESC, id ASC`
+	query := `SELECT * FROM estate WHERE latitude <= ? AND latitude >= ? AND longitude <= ? AND longitude >= ? ORDER BY popularity_desc, id`
 	err = db.Select(&estatesInBoundingBox, query, b.BottomRightCorner.Latitude, b.TopLeftCorner.Latitude, b.BottomRightCorner.Longitude, b.TopLeftCorner.Longitude)
 	if err == sql.ErrNoRows {
 		c.Echo().Logger.Infof("select * from estate where latitude ...", err)
