@@ -900,15 +900,6 @@ func searchEstateNazotte(c echo.Context) error {
 	}
 
 	estatesInPolygon := []Estate{}
-	// query = fmt.Sprintf(`SELECT * FROM estate WHERE ST_Contains(ST_PolygonFromText(%s), pointuse)`, coordinates.coordinatesToText())
-	// err = db.Get(&estatesInPolygon, query)
-	// if err != nil {
-	// 	if err == sql.ErrNoRows {
-	// 	} else {
-	// 		c.Echo().Logger.Errorf("db access is failed on executing validate if estate is in polygon : %v", err)
-	// 		return c.NoContent(http.StatusInternalServerError)
-	// 	}
-	// }
 	for _, estate := range estatesInBoundingBox {
 		validatedEstate := Estate{}
 
